@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+#wrap{
+	width : 1440px;
+	height : 1024px;
+	margin : 0 auto; 
+}
+
+.joinContents{
+	width : 452px;
+	height : 642px;
+	padding : 53px 61px 54px;
+}
+
+.loginjoin{
+	margin-top : 12px;
+	width : 452px;
+	height : 134px;
+}
+
+.logoheader{
+	
+}
