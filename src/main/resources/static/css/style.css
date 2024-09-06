@@ -6,18 +6,56 @@
 	margin : 0 auto; 
 }
 
+#wrap2{
+    width : 1440px;
+    height : 1024px;
+    margin : 0 auto; 
+}
+
 .joinContents{
 	width : 452px;
 	height : 642px;
 	padding : 53px 61px 54px;
+	border-radius : 29px;
 }
 
 .loginjoin{
 	margin-top : 12px;
 	width : 452px;
 	height : 134px;
+	border-radius : 29px;
+	font-size : 20px;
 }
 
 .logoheader{
-	
+	font-size : 30px;
+}
+
+.description-join{
+	width : 222px;
+    height : 47px;
+    font-size : 17px;
+}
+
+.email-form{
+	margin-top : 37px;
+}
+
+.duplicate-btn{
+	margin-left : 6px;
+}
+
+.input-form-join{
+	margin-top : 13px;
+}
+
+.description-more-join{
+	width : 276px;
+	height : 72px;
+	margin-top : 26px;
+	font-size : 12px;
+}
+
+.join-button{
+	margin-top : 26px;
 }
