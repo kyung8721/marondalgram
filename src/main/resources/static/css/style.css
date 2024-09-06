@@ -6,11 +6,6 @@
 	margin : 0 auto; 
 }
 
-#wrap2{
-    width : 1440px;
-    height : 1024px;
-    margin : 0 auto; 
-}
 
 .joinContents{
 	width : 452px;
@@ -57,5 +52,23 @@
 }
 
 .join-button{
+	margin-top : 26px;
+}
+
+.login-image{
+	width : 419px;
+	height : 633px;
+}
+.loginsection{
+	margin-left : 16px;
+}
+.loginContents{
+	width : 452px;
+	height : 487px;
+	padding : 64px 61px 65px;
+	border-radius : 29px;
+}
+
+.find-password{
 	margin-top : 26px;
 }
