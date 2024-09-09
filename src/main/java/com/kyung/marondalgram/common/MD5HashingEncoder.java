@@ -3,10 +3,15 @@ package com.kyung.marondalgram.common;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MD5HashingEncoder {
+import org.springframework.stereotype.Component;
+
+// Spring bean에 등록하기 위한 annotaion
+@Component("mdHashing")
+// @Primary // 의존성 우선순위 부여
+public class MD5HashingEncoder implements HashingEncoder{
 	
 	// 객체 생성 없이 호출
-	public static String encode(String message) {
+	public String encode(String message) {
 		
 		String result = "";
 		
