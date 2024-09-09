@@ -2,6 +2,7 @@ package com.kyung.marondalgram.user.domain;
 
 import java.time.LocalDateTime;
 
+// 롬복적용해서 어노테이션 사용하기
 public class User {
 	private int id;
 	private String email;

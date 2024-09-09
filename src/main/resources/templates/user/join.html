@@ -18,15 +18,21 @@
 				<div class="d-flex justify-content-center align-items-center text-center">
 				    <div class="description-join">친구들의 사진과 동영상을 보려면 가입하세요</div>
 				</div>
+				
 				<div class="d-flex email-form">
 				    <input type="text" class="form-control" placeholder = "이메일 주소" id="email">
 				    <button type="button" class="btn btn-primary duplicate-btn col-4" id="emailDuplicateBtn">중복 확인</button>
 				</div>
+				<div class="small text-success d-none" id="availableEmailText">사용가능한 이메일입니다.</div>
+				<div class="small text-danger d-none" id="duplicateEmailText">중복된 이메일입니다. 다른 이메일을 사용하세요.</div>
+				
 				<input type="text" class="form-control input-form-join" placeholder = "성명" id="realName">
+				
 				<div class="d-flex input-form-join">
 				    <input type="text" class="form-control" placeholder = "닉네임" id="nickName">
 				    <button type="button" class="btn btn-primary duplicate-btn col-4" id="nickNameDuplicateBtn">중복 확인</button>
 				</div>
+				
 				<input type="password" class="form-control input-form-join" placeholder = "비밀번호" id="password">
 				
 				<div class="d-flex justify-content-center align-items-center">
@@ -44,18 +50,85 @@
 			
 			<section class="loginjoin border d-flex justify-content-center align-items-center">
 			     <div>계정이 있으신가요?</div>
-			     <a href="#">로그인</a>
+			     <a href="/marondalgram/user/login-view">로그인</a>
 			</section>
 		</div>
 		
 	</div>
 	<script>
 		$(document).ready(function(){
+			
+			$("emailDuplicateBtn").on("click", function(){
+				let id = $("#idInput").val();
+				
+				// 유효성 검사 및 내 상황에 맞는 추가 필요
+				
+				// 중복확인 안하면 회원가입 불가하게, 중복인 경우에는 회원가입이 안되게.
+				// 중복되지 않았을 때만 회원가입 가능하게.
+				// 회원가입 버튼과 중복확인 버튼 사이에서 데이터 공유가 일어나도록.
+				$.ajax({
+					type : "get"
+				, url : "/marondalgram/user/duplicate"
+				, data : {"id" : id}
+				, success : function(data){
+					if(data.isDuplicate){
+						$("#availableEmailText").addClass("d-none");
+						$("#duplicateEmailText").removeClass("d-none");
+					}else{
+						$("#availableEmailText").removeClass("d-none");
+						$("#duplicateEmailText").addClass("d-none");
+					}
+				}
+				, error : function(){
+					alert("중복 확인 오류!")
+				}
+				})
+			}); // 
+			
 			$("#joinBtn").on("click", function(){
 				let email = $("#email").val();
 				let realName = $("#realName").val();
 				let nickName = $("#nickName").val();
 				let password = $("#password").val();
+				
+				// 유효성 검사
+				if(email == ""){
+					alert("이메일을 입력하세요!");
+					return ;
+				}
+				
+				if(realName == ""){
+					alert("이름을 입력하세요!");
+					return ;
+				}
+				
+				if(nickname == ""){
+					alert("닉네임을 입력하세요!");
+					return ;
+				}
+				
+				if(password == ""){
+					alert("비밀번호를 입력하세요!");
+					return ;
+				}
+				
+				// 회원가입 ajax
+				$.ajax({
+					type : "post"
+					, url : "/marondalgram/user/join"
+					, data : {"email" : email, "name" : realName, "nickName" : nickName, "password" : password}
+					, success : function(data){
+						if(data.result == "success"){
+							location.href = "/marondalgram/user/login"
+						}else{
+							alert("회원가입 실패!")
+						}
+					}
+					, error : function(){
+						alert("회원가입 오류!")
+					}
+				});// 회원가입 ajax 끝
+				
 			}); // 가입하기 버튼 클릭 이벤트 끝
 		}) // 문서 끝
 	
