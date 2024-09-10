@@ -13,5 +13,7 @@ public interface UserRepository {
 	public int emailDuplicateRepository(@Param("email")String email);
 	
 	public int nickNameDuplicateRepository(@Param("nickName")String nickName);
+	
+	public User loginRepository(@Param("loginId") String loginId, @Param("password") String password);
 
 }

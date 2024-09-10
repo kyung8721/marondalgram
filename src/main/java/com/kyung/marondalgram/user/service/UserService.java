@@ -44,4 +44,12 @@ public class UserService {
 	public int nickNameDuplicateService(String nickName) {
 		return userRepository.nickNameDuplicateRepository(nickName);
 	}
+	
+	public User loginService(String loginId, String password) {
+		HashingEncoder encoder = new MD5HashingEncoder();
+		
+		String encryptPassword = encoder.encode(password);
+		
+		return userRepository.loginRepository(loginId, encryptPassword);
+	}
 }
