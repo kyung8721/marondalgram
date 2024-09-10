@@ -44,5 +44,24 @@
     
     
     </select>
+    
+    <select id="loginRepository" parameterType="string"
+    resultType = "com.kyung.marondalgram.user.domain.User">
+	    SELECT
+	        `id`
+	        , `email`
+            , `realName`
+            , `nickName`
+            , `password`
+            , `createdAt`
+            , `updatedAt`
+	    FROM
+	        `user`
+	    WHERE
+	        `email` = #{loginId}
+	        `password` = #{password}
+    
+    
+    </select>
  
  </mapper>

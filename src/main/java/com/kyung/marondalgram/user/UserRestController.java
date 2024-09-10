@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kyung.marondalgram.user.domain.User;
 import com.kyung.marondalgram.user.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/marondalgram/user")
 public class UserRestController {
@@ -79,6 +82,29 @@ public class UserRestController {
 			resultMap.put("isDuplicate", false); // 이메일 중복되지 않음
 		}
 		
+		
+		return resultMap;
+	}
+	
+	@PostMapping("/login")
+	public Map<String, String> login(
+			@RequestParam("loginId") String loginId
+			, @RequestParam("password") String password
+			, HttpServletRequest request){
+		User user = userService.loginService(loginId, password);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(user != null) {
+			// 로그인 성공
+			resultMap.put("result", "success");
+			HttpSession session = request.getSession();
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userNickName", user.getNickName());
+		} else {
+			// 로그인 실패
+			resultMap.put("resulte", "fail");
+		}
 		
 		return resultMap;
 	}
