@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang = "ko">
+<html lang="ko" 
+    xmlns:th="http://www.thymeleaf.org" 
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link rel="stylesheet" href="/static/css/style.css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></head>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
 <body>
 	
 	
@@ -32,6 +35,8 @@
 				    <input type="text" class="form-control" placeholder = "닉네임" id="nickName">
 				    <button type="button" class="btn btn-primary duplicate-btn col-4" id="nickNameDuplicateBtn">중복 확인</button>
 				</div>
+				<div class="small text-success d-none" id="availableNickNameText">사용가능한 닉네임입니다.</div>
+                <div class="small text-danger d-none" id="duplicateNickNameText">중복된 닉네임입니다. 다른 닉네임을 사용하세요.</div>
 				
 				<input type="password" class="form-control input-form-join" placeholder = "비밀번호" id="password">
 				
@@ -55,21 +60,46 @@
 		</div>
 		
 	</div>
+	
+	
+	<script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-		$(document).ready(function(){
-			
-			$("emailDuplicateBtn").on("click", function(){
-				let id = $("#idInput").val();
+	
+	
+	   $(document).ready(function(){
+		   
+		   // 닉네임 영문 및 숫자만 포함하게 하는 이벤트
+		   $("#nickName").on("keyup", function(){
+			   $(this).val($(this).val().replace(/[^a-zA-Z0-9]/g, ''));
+		   }); // 닉네임 영문 및 숫자만 포함하게 하는 이벤트 종료
+		   
+		   
+		   // 이메일 중복 확인 이벤트
+			$("#emailDuplicateBtn").on("click", function(){
+				let email = $("#email").val();
 				
-				// 유효성 검사 및 내 상황에 맞는 추가 필요
+				// 유효성 검사
+				if(email == ""){
+                    alert("이메일을 입력하세요!");
+                    return ;
+                }
 				
 				// 중복확인 안하면 회원가입 불가하게, 중복인 경우에는 회원가입이 안되게.
 				// 중복되지 않았을 때만 회원가입 가능하게.
 				// 회원가입 버튼과 중복확인 버튼 사이에서 데이터 공유가 일어나도록.
+				
+				
 				$.ajax({
 					type : "get"
-				, url : "/marondalgram/user/duplicate"
-				, data : {"id" : id}
+				, url : "/marondalgram/user/duplicate-email"
+				, data : {"email" : email}
 				, success : function(data){
 					if(data.isDuplicate){
 						$("#availableEmailText").addClass("d-none");
@@ -83,8 +113,38 @@
 					alert("중복 확인 오류!")
 				}
 				})
-			}); // 
+			}); // 이메일 중복 버튼 추가 이벤트 종료
 			
+			// 닉네임 중복 확인 이벤트
+            $("#nickNameDuplicateBtn").on("click", function(){
+                let nickName = $("#nickName").val();
+                
+                // 유효성 검사
+                if(nickName == ""){
+                    alert("닉네임을 입력하세요!");
+                    return ;
+                }
+                
+                $.ajax({
+                    type : "get"
+                , url : "/marondalgram/user/duplicate-nickName"
+                , data : {"nickName" : nickName}
+                , success : function(data){
+                    if(data.isDuplicate){
+                        $("#availableNickNameText").addClass("d-none");
+                        $("#duplicateNickNameText").removeClass("d-none");
+                    }else{
+                        $("#availableNickNameText").removeClass("d-none");
+                        $("#duplicateNickNameText").addClass("d-none");
+                    }
+                }
+                , error : function(){
+                    alert("중복 확인 오류!")
+                }
+                })
+            }); // 닉네임 중복 버튼 추가 이벤트 종료
+			
+			// 회원가입 버튼 이벤트
 			$("#joinBtn").on("click", function(){
 				let email = $("#email").val();
 				let realName = $("#realName").val();
@@ -102,7 +162,7 @@
 					return ;
 				}
 				
-				if(nickname == ""){
+				if(nickName == ""){
 					alert("닉네임을 입력하세요!");
 					return ;
 				}
@@ -112,6 +172,35 @@
 					return ;
 				}
 				
+				
+				// 이메일 중복 글자 확인(중복가입 안되게)
+				if($("#availableEmailText").hasClass("d-none") && !$("#duplicateEmailText").hasClass("d-none")){
+					// 이메일 가입 불가능
+					alert("이메일이 중복되었습니다!");
+					return ;
+				} else if(!$("#availableEmailText").hasClass("d-none") && $("#duplicateEmailText").hasClass("d-none")){
+					// 이메일 가입 가능
+					
+				}else if($("#availableEmailText").hasClass("d-none") && $("#duplicateEmailText").hasClass("d-none")){
+					// 이메일 중복 미확인
+					alert("이메일이 중복되었는지 확인하세요.");
+                    return ;
+				}
+				
+				// 닉네임 중복 글자 확인(중복가입 안되게)
+                if($("#availableNickNameText").hasClass("d-none") && !$("#duplicateNickNameText").hasClass("d-none")){
+                    // 닉네임 가입 불가능
+                    alert("닉네임이 중복되었습니다!");
+                    return ;
+                } else if(!$("#availableNickNameText").hasClass("d-none") && $("#duplicateNickNameText").hasClass("d-none")){
+                    // 닉네임 가입 가능
+                    
+                }else if($("#availableNickNameText").hasClass("d-none") && $("#duplicateNickNameText").hasClass("d-none")){
+                    // 닉네임 중복 미확인
+                    alert("닉네임이 중복되었는지 확인하세요.");
+                    return ;
+                }
+				
 				// 회원가입 ajax
 				$.ajax({
 					type : "post"
@@ -119,7 +208,7 @@
 					, data : {"email" : email, "name" : realName, "nickName" : nickName, "password" : password}
 					, success : function(data){
 						if(data.result == "success"){
-							location.href = "/marondalgram/user/login"
+							location.href = "/marondalgram/user/login-view"
 						}else{
 							alert("회원가입 실패!")
 						}
@@ -127,21 +216,14 @@
 					, error : function(){
 						alert("회원가입 오류!")
 					}
-				});// 회원가입 ajax 끝
+				});// 회원가입 ajax 종료
 				
-			}); // 가입하기 버튼 클릭 이벤트 끝
-		}) // 문서 끝
+			}); // 가입하기 버튼 클릭 이벤트 종료
+		}) // 문서 종료
 	
 	
 	</script>
 	
-	<script
-	  src="https://code.jquery.com/jquery-3.7.1.min.js"
-	  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-	  crossorigin="anonymous">
-	</script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
 </body>
 </html>

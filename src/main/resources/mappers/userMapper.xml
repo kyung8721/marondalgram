@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <mapper namespace = "com.kyung.marondal.user.repository.UserRepository">
+ <mapper namespace = "com.kyung.marondalgram.user.repository.UserRepository">
  	<insert id="addUserRepository" parameterType="com.kyung.marondalgram.user.domain.User">
  		INSERT INTO
  			`user`
@@ -22,5 +22,27 @@
  		)
  	
  	</insert>
+ 	
+ 	<select id="emailDuplicateRepository" parameterType="string" resultType = "int">
+ 	  SELECT
+ 	      count(*)
+ 	  FROM
+ 	      `user`
+ 	  WHERE
+ 	      `email` = #{email}
+ 	
+ 	
+ 	</select>
+ 	
+ 	<select id="nickNameDuplicateRepository" parameterType="string" resultType = "int">
+      SELECT
+          count(*)
+      FROM
+          `user`
+      WHERE
+          `nickName` = #{nickName}
+    
+    
+    </select>
  
  </mapper>

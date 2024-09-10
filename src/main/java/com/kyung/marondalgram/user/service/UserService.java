@@ -36,4 +36,12 @@ public class UserService {
 		
 		return userRepository.addUserRepository(user);
 	}
+	
+	public int emailDuplicateService(String email) {
+		return userRepository.emailDuplicateRepository(email);
+	}
+	
+	public int nickNameDuplicateService(String nickName) {
+		return userRepository.nickNameDuplicateRepository(nickName);
+	}
 }
