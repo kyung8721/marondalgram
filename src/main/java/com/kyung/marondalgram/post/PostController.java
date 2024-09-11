@@ -12,4 +12,14 @@ public class PostController {
 	public String imageView() {
 		return "post/createImage";
 	}
+	
+	@GetMapping("/create/image-check-view")
+	public String imageCheckView() {
+		return "post/createImageCheck";
+	}
+	
+	@GetMapping("/create/text-view")
+	public String textView() {
+		return "post/createText";
+	}
 }

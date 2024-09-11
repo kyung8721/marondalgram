@@ -11,13 +11,26 @@
 </head>
 <body>
     
-    <div id="createWrap" class="">
+    <div id="createTextWrap" class="bg-danger">
         <header id="createHeader" class="d-flex align-items-center"> 
-	        <th:block layout:fragment="backBtn" class="col-1"></th:block>
-	        <div class="createHeaderText col-10 d-flex justify-content-center">새 게시물 등록</div>
-	        <th:block layout:fragment="nextBtn" class="col-1"></th:block>
+            <div class="col-1"><a href="#">이전</a></div>
+            <div class="createHeaderText col-10 d-flex justify-content-center">새 게시물 등록</div>
+            <div class="col-1"><a href="#">완료</a></div>
         </header>
-        <th:block layout:fragment="contents"></th:block>
+        
+        <section class="d-flex">
+            <div class="createcontentsSection bg-primary d-flex justify-content-center">
+                <img src="https://cdn.pixabay.com/photo/2023/10/12/08/23/bird-8310172_1280.png" class="imageCheck">
+            </div>
+            
+            <div>
+	            <div class="createTextProfileSection bg-secondary">
+	                
+	            </div>
+	            <div class="createTextBodySection bg-info"></div>
+	            <div class="createMusicSection bg-success"></div>
+            </div>
+        </section>
     </div>
 
 
