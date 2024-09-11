@@ -103,7 +103,7 @@ public class UserRestController {
 			session.setAttribute("userNickName", user.getNickName());
 		} else {
 			// 로그인 실패
-			resultMap.put("resulte", "fail");
+			resultMap.put("result", "fail");
 		}
 		
 		return resultMap;
