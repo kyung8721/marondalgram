@@ -78,16 +78,56 @@
 	height : 760px;
 	margin : 0 auto;
 	border-radius : 32px;
-	
+	overflow: hidden
 }
 
 #createHeader{
-	height : 61px;
+	height : 60px;
 	border-bottom : solid 1px #757575;
 }
 
+.createHeaderText{
+	font-size : 24px;
+	font-weight : bold;
+}
+
 .createcontents{
-	width: 50px;
-	height : 100px;
-	background-color : red;
+	height : 699px;
+}
+
+.createcontentsSection{
+	width : 699px;
+	height : 699px;
+	overflow: hidden
+}
+
+#createTextWrap{
+	width : 1000px;
+	height : 760px;
+	margin : 0 auto;
+    border-radius : 32px;
+    overflow: hidden
+}
+
+.addimage{
+	font-size : 24px;
+}
+
+.imageCheck{
+	height: 699px;
+}
+
+.createTextProfileSection{
+	width : 301px;
+	height : 71px;
+}
+
+.createTextBodySection{
+	width : 301px;
+	height : 505px;
+}
+
+.createMusicSection{
+	width : 301px;
+	height : 122px;
 }
