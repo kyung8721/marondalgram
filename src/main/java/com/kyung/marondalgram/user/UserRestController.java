@@ -47,7 +47,7 @@ public class UserRestController {
 		if(count == 1) {
 			resultMap.put("result", "success");
 		} else {
-			resultMap.put("resulte", "fail");
+			resultMap.put("result", "fail");
 		}
 		
 		return resultMap;
