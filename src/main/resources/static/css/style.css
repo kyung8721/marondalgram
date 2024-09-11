@@ -72,3 +72,22 @@
 .find-password{
 	margin-top : 26px;
 }
+
+#createWrap{
+	width : 745px;
+	height : 760px;
+	margin : 0 auto;
+	border-radius : 32px;
+	
+}
+
+#createHeader{
+	height : 61px;
+	border-bottom : solid 1px #757575;
+}
+
+.createcontents{
+	width: 50px;
+	height : 100px;
+	background-color : red;
+}
