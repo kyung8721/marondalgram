@@ -10,25 +10,46 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
-    
-    <div id="createTextWrap" class="bg-danger">
+    <!-- 전체 화면 -->
+    <div id="createTextWrap" class="">
+        <!-- 헤더 -->
         <header id="createHeader" class="d-flex align-items-center"> 
             <div class="col-1"><a href="#">이전</a></div>
             <div class="createHeaderText col-10 d-flex justify-content-center">새 게시물 등록</div>
             <div class="col-1"><a href="#">완료</a></div>
         </header>
         
+        <!-- 본문 -->
         <section class="d-flex">
-            <div class="createcontentsSection bg-primary d-flex justify-content-center">
+            <!-- 본문 이미지 -->
+            <div class="createcontentsSection d-flex justify-content-center">
                 <img src="https://cdn.pixabay.com/photo/2023/10/12/08/23/bird-8310172_1280.png" class="imageCheck">
             </div>
             
+            <!-- 텍스트 본문 -->
             <div>
-	            <div class="createTextProfileSection bg-secondary">
-	                
+                <!-- 프로필 부분 -->
+	            <div class="createTextProfileSection d-flex align-items-center pl-2">
+	                <div class="smallProfile">
+	                   <img class = "smallProfileImage" src = "https://cdn.pixabay.com/photo/2023/10/12/08/23/bird-8310172_1280.png">
+	                </div>
+	                <div class="smallNickName ml-2">
+	                   <span>nickname_sample</span>
+	                </div>
 	            </div>
-	            <div class="createTextBodySection bg-info"></div>
-	            <div class="createMusicSection bg-success"></div>
+	            
+	            <!-- 본문 텍스트 입력 부분 -->
+	            <div class="createTextBodySection d-flex justify-content-center align-items-center">
+	               <textarea class="textInput" placeholder = "내용을 입력하세요."></textarea>
+	            </div>
+	            
+	            <!-- 음악 선택 부분 -->
+	            <div class="createMusicSection d-flex justify-content-center align-items-center">
+	               <div>
+	                   <div class="searchMusicText">음악 검색</div>
+	                   <input type="search" class="searchMusic mt-2" placeholder ="음악을 검색하세요.">
+	               </div>
+	            </div>
             </div>
         </section>
     </div>

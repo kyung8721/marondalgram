@@ -131,3 +131,47 @@
 	width : 301px;
 	height : 122px;
 }
+
+.textInput{
+	width : 290px;
+	height : 490px;
+	border : 0;
+	resize : none;
+	font-size : 14px;
+}
+
+textarea:focus { outline:none; } /* 테두리 없애기 */
+input:focus { outline:none; }
+
+.smallProfile{
+	width : 47px;
+	height : 47px;
+	border-radius : 70%;
+	overflow : hidden; 
+	display : flex;
+	justify-content : center;
+    align-items : center;
+}
+
+.smallProfileImage{
+	height : 47px;
+}
+
+.smallNickName{
+	font-size : 16px;
+}
+
+.searchMusicText{
+	font-size : 16px;
+	font-weight : bold;
+}
+
+.searchMusic{
+	border-radius : 9999px;
+	height : 40px;
+	width : 230px;
+	border : none;
+	font-size : 14px;
+}
+
+
