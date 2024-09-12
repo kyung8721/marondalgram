@@ -4,6 +4,7 @@
 	width : 1440px;
 	height : 1024px;
 	margin : 0 auto; 
+
 }
 
 
@@ -24,6 +25,7 @@
 
 .logoheader{
 	font-size : 30px;
+	font-weight : bold;
 }
 
 .description-join{
@@ -174,4 +176,29 @@ input:focus { outline:none; }
 	font-size : 14px;
 }
 
+.mainMenuSection{
+	width : 346px;
+	display : flex;
+	flex-direction : column;
+}
 
+.mainMenu{
+	flex-grow : 1;
+}
+
+.menuLogoSection{
+	height : 110px;
+}
+
+.menuIconSection{
+	width : 50px;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+}
+
+.menuText{
+	color : black;
+	font-size : 24px;
+	font-weight : bold;
+}

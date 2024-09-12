@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+		<th:block th:fragment = "menu">
+			<div class="mainMenuSection bg-success">
+				<div class="menuLogoSection bg-info d-flex align-items-center">
+					<div class = "logoheader ml-3">Marondalgram</div>
+				</div>
+				<nav class="mainMenu bg-danger">
+					<ul class="nav flex-column ml-3 mt-3">
+						<li class="nav-item d-flex">
+							<div class="menuIconSection">
+								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+									<path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+								</svg>
+							</div>
+							<a class="nav-link menuText" href="#">홈</a>
+						</li>
+						<li class="nav-item d-flex mt-2">
+							<div class="menuIconSection">
+								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+									<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+								</svg>
+							</div>
+							<a class="nav-link menuText" href="#">검색</a>
+						</li>
+						<li class="nav-item d-flex mt-2">
+							<div class="menuIconSection">
+								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-wifi" viewBox="0 0 16 16">
+									<path d="M15.384 6.115a.485.485 0 0 0-.047-.736A12.44 12.44 0 0 0 8 3C5.259 3 2.723 3.882.663 5.379a.485.485 0 0 0-.048.736.52.52 0 0 0 .668.05A11.45 11.45 0 0 1 8 4c2.507 0 4.827.802 6.716 2.164.205.148.49.13.668-.049"/>
+									<path d="M13.229 8.271a.482.482 0 0 0-.063-.745A9.46 9.46 0 0 0 8 6c-1.905 0-3.68.56-5.166 1.526a.48.48 0 0 0-.063.745.525.525 0 0 0 .652.065A8.46 8.46 0 0 1 8 7a8.46 8.46 0 0 1 4.576 1.336c.206.132.48.108.653-.065m-2.183 2.183c.226-.226.185-.605-.1-.75A6.5 6.5 0 0 0 8 9c-1.06 0-2.062.254-2.946.704-.285.145-.326.524-.1.75l.015.015c.16.16.407.19.611.09A5.5 5.5 0 0 1 8 10c.868 0 1.69.201 2.42.56.203.1.45.07.61-.091zM9.06 12.44c.196-.196.198-.52-.04-.66A2 2 0 0 0 8 11.5a2 2 0 0 0-1.02.28c-.238.14-.236.464-.04.66l.706.706a.5.5 0 0 0 .707 0l.707-.707z"/>
+								</svg>
+							</div>
+							<a class="nav-link menuText" href="#">탐색 탭</a>
+						</li>
+						<li class="nav-item d-flex mt-2">
+							<div class="menuIconSection">
+								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-camera-video-fill" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2z"/>
+								</svg>
+							</div>
+							<a class="nav-link menuText" href="#">릴스</a>
+						</li>
+						<li class="nav-item d-flex mt-2">
+							<div class="menuIconSection">
+								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
+									<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/>
+								</svg>
+							</div>
+							<a class="nav-link menuText" href="#">메시지</a>
+						</li>
+						<li class="nav-item d-flex mt-2">
+							<div class="menuIconSection">
+								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+								</svg>
+							</div>
+							<a class="nav-link menuText" href="#">알림</a>
+						</li>
+						<li class="nav-item d-flex mt-2">
+							<div class="menuIconSection">
+								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+								</svg>
+							</div>
+							<a class="nav-link menuText" href="#">만들기</a>
+						</li>
+						<li class="nav-item d-flex mt-2">
+							<div class="menuIconSection">
+								<div class="smallProfile">
+									<img src="https://cdn.pixabay.com/photo/2024/09/03/09/03/deer-9018759_1280.jpg" class="smallProfimeImage">
+								</div>
+							</div>
+							<a class="nav-link menuText" href="#">프로필</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</th:block>
+</html>

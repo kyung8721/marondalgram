@@ -22,4 +22,9 @@ public class PostController {
 	public String textView() {
 		return "post/createText";
 	}
+	
+	@GetMapping("/timeline-view")
+	public String timelineView() {
+		return "post/timeline";
+	}
 }
