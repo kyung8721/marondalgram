@@ -21,10 +21,12 @@
                     <div class="description-join">친구들의 사진과 동영상을 보려면 로그인하세요</div>
                 </div>
                 
-                <input type="text" class="form-control email-form" placeholder = "이메일">
-                <input type="password" class="form-control input-form-join" placeholder = "비밀번호">
-                
-                <button type = "button" class="btn btn-block btn-primary join-button">가입하기</button>
+                <form id="loginForm">
+	                <input type="text" class="form-control email-form" placeholder = "이메일" id="email">
+	                <input type="password" class="form-control input-form-join" placeholder = "비밀번호" id="password">
+	                
+	                <button type = "submit" class="btn btn-block btn-primary join-button">가입하기</button>
+                </form>
                 
                 <div class="find-password d-flex justify-content-center align-items-center">
                     비밀번호를 잊으셨나요?
@@ -52,6 +54,47 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+	
+	<script>
+		$(document).ready(function(){
+			$("#loginForm").on("submit", function(e){
+				// 이벤트 기본 기능 없애기
+				e.preventDefault();
+				
+				let email = $("#email").val();
+				let password = $("#password").val();
+				
+				// 유효성 검사
+				if(email == null){
+					alert("이메일을 입력하세요!");
+					return ;
+				}
+				if(password == null){
+					alert("비밀번호를 입력하세요");
+					return ;
+				}
+				
+				// 로그인 버튼 ajax
+				$.ajax({
+					type : "post"
+					, url : "/marondalgram/user/login"
+					, data : {"loginId" : email, "password" : password}
+					, success : function(data){
+						if(data.result == "success"){
+							location.href = "/marondalgram/post/timeline-view"
+						} else{
+							alert("로그인 실패!");
+							return ;
+						}
+					}
+					, error : function(){
+						alert("로그인 오류");
+						return ;
+					}
+				})// 로그인 버튼 ajax 종료
+				
+			}); // 로그인 버튼 이벤트 종료
+		}); // 문서 준비 종료
+	</script>
 </body>
 </html>

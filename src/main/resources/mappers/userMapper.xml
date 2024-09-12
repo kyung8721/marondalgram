@@ -59,6 +59,7 @@
 	        `user`
 	    WHERE
 	        `email` = #{loginId}
+	        AND
 	        `password` = #{password}
     
     
