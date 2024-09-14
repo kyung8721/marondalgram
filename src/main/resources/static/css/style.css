@@ -4,7 +4,8 @@
 	width : 1440px;
 	height : 1024px;
 	margin : 0 auto; 
-
+	overflow: auto;
+	flex-direction : row;
 }
 
 
@@ -108,7 +109,7 @@
 	height : 760px;
 	margin : 0 auto;
     border-radius : 32px;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .addimage{
@@ -178,8 +179,11 @@ input:focus { outline:none; }
 
 .mainMenuSection{
 	width : 346px;
+	height : 1024px;
 	display : flex;
 	flex-direction : column;
+	position : fixed;
+	background-color : #ffffff;
 }
 
 .mainMenu{
@@ -202,3 +206,56 @@ input:focus { outline:none; }
 	font-size : 24px;
 	font-weight : bold;
 }
+
+.timelinePost{
+	width : 570px;
+	height : 931px
+}
+
+.mainContents{
+	flex-grow : 1;
+}
+
+.nickNameHeaderSection{
+	height : 75px;
+}
+
+.timelinePostImage{
+	height : 619px;
+}
+
+.timelinePostImageSection{
+	height : 619px;
+	display : flex;
+	justify-content : center;
+	overflow : hidden;
+}
+
+.timelineAdditionalSection{
+	height : 40px;
+}
+
+.timelineCommentSection{
+	height : 117px;
+}
+
+.PostSection{
+	width : 673px;
+}
+
+.subHeadingTwenty{
+	font-size : 20px;
+}
+
+.smallTextSecondary{
+	font-size : 14px;
+	color : #757575;
+}
+
+.commentInput{
+	border-width : 0 0 1px;
+	border-color : #757575;
+	background-color:transparent;
+	
+}
+
