@@ -27,7 +27,15 @@
 .logoheader{
 	font-size : 30px;
 	font-weight : bold;
+	text-decoration: none;
+	color : black;
 }
+
+.logoheader:hover{
+	text-decoration: none;
+}
+
+
 
 .description-join{
 	width : 222px;
@@ -184,6 +192,10 @@ input:focus { outline:none; }
 	flex-direction : column;
 	position : fixed;
 	background-color : #ffffff;
+	border-style : solid;
+	border-width : 0 1px 0 0;
+	border-color : #757575;
+	
 }
 
 .mainMenu{
