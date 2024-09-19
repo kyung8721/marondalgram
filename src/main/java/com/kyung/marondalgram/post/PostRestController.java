@@ -29,18 +29,40 @@ public class PostRestController {
 	@PostMapping("/create")
 	public Map<String, String> createPost(
 			@RequestParam("contents") String contents
-			, @RequestParam(value = "imageFile", required = false) MultipartFile imageFile
+			, @RequestParam("imagePath") String imagePath
 			, @RequestParam("musicId") int musicId
 			, HttpSession session){
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		Post post = postService.addPost(userId, contents, imageFile, musicId);
+		Post post = postService.addPost(userId, contents, imagePath, musicId);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
 		if(post != null) {
 			resultMap.put("result", "success");
+		}else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+		
+	}
+	
+	// 게시글 사진 저장 API
+	@PostMapping("/create/imageSave")
+	public Map<String, String> ImageSave(
+			@RequestParam(value = "imageFile", required = false) MultipartFile imageFile
+			, HttpSession session){
+		int userId = (Integer)session.getAttribute("userId");
+		
+		String urlPath = postService.imageSaveService(userId, imageFile);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(urlPath != null) {
+			resultMap.put("result", "success");
+			resultMap.put("imagePath", urlPath);
 		}else {
 			resultMap.put("result", "fail");
 		}

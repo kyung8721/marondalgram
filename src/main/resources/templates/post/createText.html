@@ -23,7 +23,7 @@
         <section class="d-flex">
             <!-- 본문 이미지 -->
             <div class="createcontentsSection d-flex justify-content-center">
-                <img src="https://cdn.pixabay.com/photo/2023/10/12/08/23/bird-8310172_1280.png" class="imageCheck">
+                <img th:src="${imagePath}" class="imageCheck">
             </div>
             
             <!-- 텍스트 본문 -->
@@ -31,10 +31,10 @@
                 <!-- 프로필 부분 -->
 	            <div class="createTextProfileSection d-flex align-items-center pl-2">
 	                <div class="smallProfile">
-	                   <img class = "smallProfileImage" src = "https://cdn.pixabay.com/photo/2023/10/12/08/23/bird-8310172_1280.png">
+	                   <img class = "smallProfileImage" th:src = "${user.profileImagePath}">
 	                </div>
 	                <div class="smallNickName ml-2">
-	                   <span>nickname_sample</span>
+	                   <span th:text="${user.loginId}">nickname_sample</span>
 	                </div>
 	            </div>
 	            
