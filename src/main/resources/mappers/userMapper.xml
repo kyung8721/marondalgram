@@ -64,5 +64,38 @@
     
     
     </select>
+    
+    <select id="selectUserById" parameterType = "int"
+    resultType = "com.kyung.marondalgram.user.domain.User">
+    	SELECT
+	        `id`
+	        , `email`
+            , `realName`
+            , `nickName`
+            , `password`
+            , `createdAt`
+            , `updatedAt`
+	    FROM
+	        `user`
+	    WHERE
+	    	`id` = #{id}
+    </select>
+    
+    <select id="selectUserProfileById" parameterType="int"
+    resultType = "com.kyung.marondalgram.user.domain.Profile">
+    	SELECT
+    		`id`
+    		, `userId`
+    		, `introduce`
+    		, `profileImagePath`
+    		, `createdAt`
+    		, `updatedAt`
+    	FROM
+    		`profile`
+    	WHERE
+    		`userId` = #{id}
+    
+    
+    </select>
  
  </mapper>

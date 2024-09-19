@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.kyung.marondalgram.common.HashingEncoder;
 import com.kyung.marondalgram.common.MD5HashingEncoder;
+import com.kyung.marondalgram.user.domain.Profile;
 import com.kyung.marondalgram.user.domain.User;
+import com.kyung.marondalgram.user.dto.UserDto;
 import com.kyung.marondalgram.user.repository.UserRepository;
 
 @Service
@@ -51,5 +53,38 @@ public class UserService {
 		String encryptPassword = encoder.encode(password);
 		
 		return userRepository.loginRepository(loginId, encryptPassword);
+	}
+	
+	// user 정보 불러오기
+	public User selectUserById(int id) {
+		return userRepository.selectUserById(id);
+	}
+	
+	// user 프로필 정보 불러오기
+	public Profile selectUserProfileById(int id) {
+		return userRepository.selectUserProfileById(id);
+	}
+	
+	// 사용자 정보 가져오기
+	public UserDto userData(int userId) {
+		User user = userRepository.selectUserById(userId);
+		Profile profile = userRepository.selectUserProfileById(userId);
+		
+		if(profile == null) {
+			// 기본값 지정
+			profile = new Profile();
+			profile.setProfileImagePath("https://cdn.pixabay.com/photo/2015/11/06/11/43/businessman-1026415_1280.jpg");
+			profile.setId(0);
+			
+		}
+		
+		UserDto userDto = UserDto.builder()
+				.userId(user.getId())
+				.profileId(profile.getId())
+				.loginId(user.getNickName())
+				.profileImagePath(profile.getProfileImagePath())
+				.build();
+		
+		return userDto;
 	}
 }

@@ -9,12 +9,17 @@
     </div>
     
     <div layout:fragment="nextBtn">
-        <a href="#">다음</a>
+        <a th:href="|/marondalgram/post/create/text-view?imagePath=${imagePath}|">다음</a>
     </div>
     
     <section layout:fragment="contents" class="createcontents d-flex justify-content-center align-items-center">
        <div>
-            <img src="https://cdn.pixabay.com/photo/2023/10/16/19/39/bird-8319973_1280.jpg" class="imageCheck">
+            <img th:src="${imagePath}" class="imageCheck">
         </div>
     </section>
+    
+    <script layout:fragment = "script">
+    	
+    
+    </script>
 </html>

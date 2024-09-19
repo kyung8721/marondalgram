@@ -3,6 +3,7 @@ package com.kyung.marondalgram.user.repository;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.kyung.marondalgram.user.domain.Profile;
 import com.kyung.marondalgram.user.domain.User;
 
 @Mapper
@@ -15,5 +16,9 @@ public interface UserRepository {
 	public int nickNameDuplicateRepository(@Param("nickName")String nickName);
 	
 	public User loginRepository(@Param("loginId") String loginId, @Param("password") String password);
+	
+	public User selectUserById(@Param("id") int id);
+	
+	public Profile selectUserProfileById(@Param("id") int id);
 
 }

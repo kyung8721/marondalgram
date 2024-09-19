@@ -2,12 +2,13 @@ package com.kyung.marondalgram.post.dto;
 
 import java.time.LocalDateTime;
 
-import com.kyung.marondalgram.post.domain.Post;
-
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class PostDto {
+	
 	private int postId;
 	private int userId;
 	
@@ -15,12 +16,10 @@ public class PostDto {
 	private String imagePath;
 	private int musicId;
 	
+	private String loginId;
+	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	
-//	public static Post toEntity(PostDto dto) {
-//		return Post.builder()
-//				.id(dto.getId())
-//				.
-//	}
+
 }

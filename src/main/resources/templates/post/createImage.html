@@ -21,8 +21,52 @@
 	           <span class="addimage">사진과 동영상을 추가하세요.</span>
 	        </div>
 	        <div class="mt-2 d-flex justify-content-center">
-	           <button type="button" class="btn btn-primary">컴퓨터에서 선택</button>
+	           <button type="button" class="btn btn-primary" id="fileInputBtn">컴퓨터에서 선택</button>
+	           <input type="file" class="d-none" id="fileInput">
 	        </div>
         </div>
     </section>
+    
+    <script layout:fragment = "script">
+    	$(document).ready(function(){
+    		$("#fileInputBtn").on("click", function(){
+    			$("#fileInput").click();
+    			
+    			
+    		}); // 파일 선택 버튼 종료
+    		
+    		$("#fileInput").on("input", function(){
+    			
+    			
+				let file = $("#fileInput")[0].files[0];
+				
+    			
+    			let formData = new FormData();
+    			formData.append("imageFile", file);
+    			
+    			$.ajax({
+    				type:"post"
+    				, url : "/marondalgram/post/create/imageSave"
+    				, data : formData
+    				, enctype : "multipart/form-data" // 파일 업로드 필수
+    				, processData : false // 파일 업로드 필수
+    				, contentType : false // 파일 업로드 필수
+    				, success : function(data){
+    					if(data.result == "success"){
+    						let imagePath = data.imagePath;
+    						location.href = "/marondalgram/post/create/image-check-view?imagePath=" + imagePath;
+    					}else{
+    						alert("파일 입력 실패");
+    					}
+    				}
+    			, error : function(){
+    				alert("파일 입력 에러");
+    			}
+    			}); // 파일선택 ajax 종료
+    		}); // 파일 선택 시
+    		
+    	}) // 문서 준비 종료
+    
+    
+    </script>
 </html>
