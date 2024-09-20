@@ -58,7 +58,7 @@
 	    FROM
 	        `user`
 	    WHERE
-	        `email` = #{loginId}
+	        `nickName` = #{loginId}
 	        AND
 	        `password` = #{password}
     

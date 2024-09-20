@@ -11,6 +11,6 @@ public class UserDto {
 	private int userId;
 	private int profileId;
 	
-	private String loginId;
+	private String loginId; // 닉네임
 	private String profileImagePath;
 }
