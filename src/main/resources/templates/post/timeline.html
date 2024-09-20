@@ -13,15 +13,20 @@
 	    		<!-- 게시글 1개 -->
 	    		<div class="timelinePost" th:each="post:${cardList}">
 	    			<!-- 닉네임 부분 -->
-	    			<div class="nickNameHeaderSection d-flex align-items-center pl-2">
-	    				<div class="d-flex  align-items-center">
+	    			<div class="nickNameHeaderSection d-flex pl-2">
+	    				<div class="d-flex align-items-center">
 	    					<!-- 프로필 사진 -->
 		    				<div class="smallProfile">
 		    					<img class="smallProfileImage" th:src="${post.profileImagePath}">
 		    				</div>
 		    				<!-- 닉네임, 음악 부분 -->
 		    				<div class="ml-2">
-		    					<div class="subHeadingTwenty" th:text="${post.loginId}">shoes_12</div>
+		    				    <div class="d-flex">
+		    					    <div class="subHeadingTwenty" th:text="${post.loginId}">shoes_12</div>
+		    					    <div class="ml-2 d-flex align-items-end smallTextSecondary">
+                                        <div th:text="${#temporals.format(post.createdAt, 'yyyy년 MM월 dd일')}">2024년 12월 1일</div>
+                                    </div>
+		    					</div>
 		    					<div class="d-flex align-items-center">
 		    						<div>
 		    							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-beamed" viewBox="0 0 16 16">
@@ -33,6 +38,7 @@
 		    						<div class="smallTextSecondary">Music</div>
 		    					</div>
 		    				</div>
+		    				
 	    				</div>
 	    			</div>
 	    			<!-- 게시글 사진 부분 -->
