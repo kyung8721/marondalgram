@@ -1,10 +1,14 @@
 package com.kyung.marondalgram.post.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kyung.marondalgram.common.FileManager;
 import com.kyung.marondalgram.post.domain.Post;
+import com.kyung.marondalgram.post.dto.PostDto;
 import com.kyung.marondalgram.post.repository.PostRepository;
 import com.kyung.marondalgram.user.dto.UserDto;
 import com.kyung.marondalgram.user.service.UserService;
@@ -50,5 +54,35 @@ public class PostService {
 
 	}
 	
+	// 타임라인에 보여질 게시글 불러오기
+	public List<PostDto> timelinePostList(){
+		// 전체 게시글 리스트 불러오기
+		List<Post> postList = postRepository.findAllByOrderByUpdatedAtDesc();
+		
+		// 게시글 카드 리스트 생성
+		List<PostDto> cardList = new ArrayList<>(); 
+		
+		// 게시글 카드 하나 불러오고 리스트에 저장
+		for(Post post : postList) {
+			int postUserId = post.getUserId();
+			UserDto userDto =  userService.userData(postUserId);
+			
+			PostDto postDto = PostDto.builder()
+							.postId(post.getId())
+							.userId(userDto.getUserId())
+							.contents(post.getContents())
+							.imagePath(post.getImagePath())
+							.musicId(post.getMusicId())
+							.loginId(userDto.getLoginId())
+							.profileImagePath(userDto.getProfileImagePath())
+							.createdAt(post.getCreatedAt())
+							.updatedAt(post.getUpdatedAt())
+							.build();
+			cardList.add(postDto);
+		}
+		
+		return cardList;
+		
+	}
 	
 }

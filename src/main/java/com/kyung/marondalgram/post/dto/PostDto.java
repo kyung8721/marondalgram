@@ -16,10 +16,11 @@ public class PostDto {
 	private String imagePath;
 	private int musicId;
 	
-	private String loginId;
+	private String loginId; // 게시글 작성자의 닉네임
+	private String profileImagePath; // 게시글 작성자의 프로필 이미지 경로
 	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	
-
+	
 }

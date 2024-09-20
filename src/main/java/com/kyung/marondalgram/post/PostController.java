@@ -1,11 +1,14 @@
 package com.kyung.marondalgram.post;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kyung.marondalgram.post.dto.PostDto;
 import com.kyung.marondalgram.post.service.PostService;
 import com.kyung.marondalgram.user.dto.UserDto;
 
@@ -15,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/marondalgram/post")
 public class PostController {
 	
+	// postService 객체 생성
 	private PostService postService;
 	
 	public PostController(PostService postService) {
@@ -48,7 +52,19 @@ public class PostController {
 	}
 	
 	@GetMapping("/timeline-view")
-	public String timelineView() {
+	public String timelineView(HttpSession session, Model model) {
+		int userId = (Integer)session.getAttribute("userId");
+		
+		// 작성 중인 사용자 정보 불러오기
+		UserDto userDto = postService.getUserData(userId);
+		
+		// 사용자 정보 저장
+		model.addAttribute("user", userDto);
+		
+		// 게시글 리스트 가져오기
+		List<PostDto> cardList = postService.timelinePostList();
+		
+		model.addAttribute("cardList", cardList);
 		return "post/timeline";
 	}
 }

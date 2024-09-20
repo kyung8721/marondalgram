@@ -22,7 +22,7 @@
                 </div>
                 
                 <form id="loginForm">
-	                <input type="text" class="form-control email-form" placeholder = "이메일" id="email">
+	                <input type="text" class="form-control email-form" placeholder = "아이디" id="loginId">
 	                <input type="password" class="form-control input-form-join" placeholder = "비밀번호" id="password">
 	                
 	                <button type = "submit" class="btn btn-block btn-primary join-button">가입하기</button>
@@ -61,12 +61,12 @@
 				// 이벤트 기본 기능 없애기
 				e.preventDefault();
 				
-				let email = $("#email").val();
+				let loginId = $("#loginId").val();
 				let password = $("#password").val();
 				
 				// 유효성 검사
-				if(email == null){
-					alert("이메일을 입력하세요!");
+				if(loginId == null){
+					alert("아이디를 입력하세요!");
 					return ;
 				}
 				if(password == null){
@@ -78,7 +78,7 @@
 				$.ajax({
 					type : "post"
 					, url : "/marondalgram/user/login"
-					, data : {"loginId" : email, "password" : password}
+					, data : {"loginId" : loginId, "password" : password}
 					, success : function(data){
 						if(data.result == "success"){
 							location.href = "/marondalgram/post/timeline-view"

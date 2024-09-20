@@ -23,7 +23,7 @@
         <section class="d-flex">
             <!-- 본문 이미지 -->
             <div class="createcontentsSection d-flex justify-content-center">
-                <img th:src="${imagePath}" class="imageCheck">
+                <img th:src="${imagePath}" class="imageCheck"  id="imagePath">
             </div>
             
             <!-- 텍스트 본문 -->
@@ -31,7 +31,7 @@
                 <!-- 프로필 부분 -->
 	            <div class="createTextProfileSection d-flex align-items-center pl-2">
 	                <div class="smallProfile">
-	                   <img class = "smallProfileImage" th:src = "${user.profileImagePath}" id="imagePath">
+	                   <img class = "smallProfileImage" th:src = "${user.profileImagePath}">
 	                </div>
 	                <div class="smallNickName ml-2">
 	                   <span th:text="${user.loginId}">nickname_sample</span>
@@ -101,7 +101,7 @@
                     , contentType : false // 파일 업로드 필수
                 	, success : function(data){
                 		if(data.result == "success"){
-                			location.href="/marondalgram/user/profile-view";
+                			location.href="/marondalgram/post/timeline-view";
                 		}else{
                 			alert("입력 실패!");
                 		}
