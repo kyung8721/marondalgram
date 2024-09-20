@@ -16,7 +16,7 @@
         <header id="createHeader" class="d-flex align-items-center"> 
             <div class="col-1"><a href="#">이전</a></div>
             <div class="createHeaderText col-10 d-flex justify-content-center">새 게시물 등록</div>
-            <div class="col-1"><a href="#">완료</a></div>
+            <div class="col-1"><a href="#" id="finishBtn">완료</a></div>
         </header>
         
         <!-- 본문 -->
@@ -31,7 +31,7 @@
                 <!-- 프로필 부분 -->
 	            <div class="createTextProfileSection d-flex align-items-center pl-2">
 	                <div class="smallProfile">
-	                   <img class = "smallProfileImage" th:src = "${user.profileImagePath}">
+	                   <img class = "smallProfileImage" th:src = "${user.profileImagePath}" id="imagePath">
 	                </div>
 	                <div class="smallNickName ml-2">
 	                   <span th:text="${user.loginId}">nickname_sample</span>
@@ -40,17 +40,17 @@
 	            
 	            <!-- 본문 텍스트 입력 부분 -->
 	            <div class="createTextBodySection d-flex justify-content-center align-items-center">
-	               <textarea class="textInput" placeholder = "내용을 입력하세요."></textarea>
+	               <textarea class="textInput" placeholder = "내용을 입력하세요." id="contents"></textarea>
 	            </div>
 	            
 	            <!-- 음악 선택 부분 -->
 	            <div class="createMusicSection d-flex justify-content-center align-items-center">
 	               <div>
 	                   <div class="searchMusicText">음악 검색</div>
-	                   <input type="search" class="searchMusic mt-2" placeholder ="음악을 검색하세요.">
+	                   <input type="search" class="searchMusic mt-2" placeholder ="음악을 검색하세요." id="music">
 	               </div>
 	            </div>
-            </div>
+            </div> 
         </section>
     </div>
 
@@ -65,5 +65,53 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script layout:fragment = "script">
+        $(document).ready(function(){
+        	// 완료 버튼 클릭
+            $("#finishBtn").on("click", function(){
+            	let imagePath = $("#imagePath").attr("src");
+            	let contents = $("#contents").val();
+            	let music = $("#music").val();
+            	
+            	if(imagePath == ""){
+            		alert("이미지가 없습니다!");
+            		return ;
+            	}
+            	
+            	if(contents == ""){
+            		alert("내용을 입력하세요!");
+            		return ;
+            	}
+            	
+            	if(music == ""){
+            		music = 0;
+            	}
+            	
+            	let formData = new FormData();
+                formData.append("contents", contents);
+                formData.append("imagePath", imagePath);
+                formData.append("musicId", music);
+                
+                $.ajax({
+                	type : "post"
+                	, url : "/marondalgram/post/create"
+                	, data : formData
+                	, processData : false // 파일 업로드 필수
+                    , contentType : false // 파일 업로드 필수
+                	, success : function(data){
+                		if(data.result == "success"){
+                			location.href="/marondalgram/user/profile-view";
+                		}else{
+                			alert("입력 실패!");
+                		}
+                	}
+                   , error : function(){
+                	   alert("입력 에러!");
+                   }
+                }) // 완료버튼 클릭 ajax 종료
+            }); // 완료 버튼 클릭 이벤트 종료
+        });// 문서 준비 종료
+    </script>
 </body>
 </html>
