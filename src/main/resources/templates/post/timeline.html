@@ -49,9 +49,14 @@
 	    			<div class="timelineAdditionalSection d-flex justify-content-between align-items-center pl-2 pr-2">
 	    				<div class="d-flex">
 	    					<!-- 좋아요 -->
-	    					<div>
-		    					<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+	    					<div th:data-like-id="${post.postId}" class="likeBtn" th:data-like-check="${post.like}">
+	    						<!-- 좋아요 체크 안됨 -->
+		    					<svg th:id="'likeBtnNoFill' + ${post.postId}" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
 									<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+								</svg>
+								<!-- 좋아요 체크 -->
+								<svg th:id="'likeBtnFill' + ${post.postId}" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red" class="bi bi-heart-fill d-none" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
 								</svg>
 							</div>
 							<!-- 댓글 -->
@@ -104,5 +109,68 @@
     	
     </section>
     
-    <script layout:fragment="script"></script>
+    <script layout:fragment="script">
+    	$(document).ready(function(){
+    		
+    		// 좋아요 조회
+    		
+    		
+    		// 좋아요 클릭 이벤트
+    		$(".likeBtn").on("click", function(){
+    			// 게시글 postId 가져오기
+    			let postId = $(this).data("like-id");
+    			
+    			let formData = new FormData();
+    			formData.append("postId", postId);
+    			
+    			if($(this).data("like-check")){
+    				$.ajax({
+        				type : "delete"
+        				, url : "/marondalgram/post/like/delete"
+        				, data : formData
+        				, processData : false // 파일 업로드 필수
+                        , contentType : false // 파일 업로드 필수
+                        , success : function(data){
+                        	if(data.result == "success"){
+                        		/* $("#likeBtnNoFill" + postId).addClass("d-none");
+                        		$("#likeBtnFill" + postId).removeClass("d-none"); */
+                        		location.reload(true);
+                        	}else{
+                        		alert("좋아요 취소 실패")
+                        	}
+                        }
+        				, error : function(){
+        					alert("좋아요 취소 오류!");
+        				}
+        			}); // 좋아요 취소 이벤트 ajax 종료
+    				
+    			} else{
+    				$.ajax({
+        				type : "post"
+        				, url : "/marondalgram/post/like/addition"
+        				, data : formData
+        				, processData : false // 파일 업로드 필수
+                        , contentType : false // 파일 업로드 필수
+                        , success : function(data){
+                        	if(data.result == "success"){
+                        		/* $("#likeBtnNoFill" + postId).addClass("d-none");
+                        		$("#likeBtnFill" + postId).removeClass("d-none"); */
+                        		location.reload(true);
+                        	}else{
+                        		alert("좋아요 실패")
+                        	}
+                        }
+        				, error : function(){
+        					alert("좋아요 오류!");
+        				}
+        			}); // 좋아요 추가 이벤트 ajax 종료
+    				
+    			}
+    			
+    			
+    		}); // 좋아요 버튼 클릭 이벤트 종료
+    	}); // 문서 준비 종료
+    
+    
+    </script>
 </html>

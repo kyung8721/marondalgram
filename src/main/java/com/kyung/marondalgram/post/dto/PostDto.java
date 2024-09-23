@@ -19,6 +19,8 @@ public class PostDto {
 	private String loginId; // 게시글 작성자의 닉네임
 	private String profileImagePath; // 게시글 작성자의 프로필 이미지 경로
 	
+	public boolean like;
+	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	
