@@ -1,6 +1,9 @@
 package com.kyung.marondalgram.post.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.kyung.marondalgram.comment.dto.CommentDto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -24,5 +27,8 @@ public class PostDto {
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	
+	private int likeCount;
 	
+	private List<CommentDto> commentList;
+	private int commentCount;
 }

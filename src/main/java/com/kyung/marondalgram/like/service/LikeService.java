@@ -29,14 +29,11 @@ public class LikeService {
 	// 좋아요 삭제 서비스
 	public boolean likeDeleteService(int userId, int postId) {
 		
-		Like like = Like.builder()
-				.userId(userId)
-				.postId(postId)
-				.build();
+		Like like = likeRepository.findByUserIdAndPostId(userId, postId);
 		
-		List<Like> likeList= likeRepository.findByUserIdAndPostId(userId, postId);
+		int likecount= likeRepository.countByUserIdAndPostId(userId, postId);
 		
-		if(likeList != null) {
+		if(likecount > 0) {
 			likeRepository.delete(like);
 			return true;
 		}else {
@@ -44,16 +41,21 @@ public class LikeService {
 		}
 	}
 	
-	// 좋아요 조회
+	// 좋아요 여부 조회
 	public boolean likeCheck(int userId, int postId){
-		List<Like> like = likeRepository.findAllByUserIdAndPostId(userId, postId);
-		
-		if(like != null) {
-			// 좋아요 있음
+		int like = likeRepository.countByUserIdAndPostId(userId, postId);
+		if(like > 0) {
+			// 좋아요 했음
 			return true;
-		}else {
-			// 좋아요 없음
+		}else{
+			// 좋아요 안 함
 			return false;
 		}
+		
+	}
+	
+	// 좋아요 갯수 조회
+	public int likeCount(int postId) {
+		return likeRepository.countByPostId(postId);
 	}
 }

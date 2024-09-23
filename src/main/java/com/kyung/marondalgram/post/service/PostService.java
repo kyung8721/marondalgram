@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kyung.marondalgram.comment.dto.CommentDto;
+import com.kyung.marondalgram.comment.service.CommentService;
 import com.kyung.marondalgram.common.FileManager;
 import com.kyung.marondalgram.like.service.LikeService;
 import com.kyung.marondalgram.post.domain.Post;
@@ -21,11 +23,13 @@ public class PostService {
 	private PostRepository postRepository;
 	private UserService userService;
 	private LikeService likeService;
+	private CommentService commentService;
 	
-	public PostService(PostRepository postRepository, UserService userService, LikeService likeService) {
+	public PostService(PostRepository postRepository, UserService userService, LikeService likeService, CommentService commentService) {
 		this.postRepository = postRepository;
 		this.userService = userService;
 		this.likeService = likeService;
+		this.commentService = commentService;
 	}
 	
 	// 게시글 저장
@@ -68,11 +72,17 @@ public class PostService {
 		// 게시글 카드 하나 불러오고 리스트에 저장
 		for(Post post : postList) {
 			int postUserId = post.getUserId();
+			int postId =  post.getId();
 			UserDto userDto =  userService.userData(postUserId);
-			boolean checkLike = likeService.likeCheck(userId, post.getId());
+			
+			boolean checkLike = likeService.likeCheck(userId, postId);
+			int likeCount = likeService.likeCount(postId);
+			
+			List<CommentDto> commentList = commentService.getCommentList(postId);
+			int commentCount = commentService.commentCountService(postId);
 			
 			PostDto postDto = PostDto.builder()
-							.postId(post.getId())
+							.postId(postId)
 							.userId(userDto.getUserId())
 							.contents(post.getContents())
 							.imagePath(post.getImagePath())
@@ -80,8 +90,11 @@ public class PostService {
 							.loginId(userDto.getLoginId())
 							.profileImagePath(userDto.getProfileImagePath())
 							.like(checkLike)
+							.commentList(commentList)
+							.commentCount(commentCount)
 							.createdAt(post.getCreatedAt())
 							.updatedAt(post.getUpdatedAt())
+							.likeCount(likeCount)
 							.build();
 			cardList.add(postDto);
 		}

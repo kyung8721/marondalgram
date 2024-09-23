@@ -3,6 +3,7 @@ package com.kyung.marondalgram.comment;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,25 @@ public class CommentRestController {
 		Map<String, String> resultMap = new HashMap<>();
 		
 		if(result != null) {
+			resultMap.put("result", "success");
+		}else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
+	
+	@DeleteMapping("/delete")
+	public Map<String, String> deleteComment(
+			HttpSession session
+			, @RequestParam("commentId") int commentId){
+		int userId = (Integer)session.getAttribute("userId");
+		
+		boolean result = commentService.deleteCommentService(commentId);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(result == true) {
 			resultMap.put("result", "success");
 		}else {
 			resultMap.put("result", "fail");
