@@ -62,7 +62,7 @@ public class PostController {
 		model.addAttribute("user", userDto);
 		
 		// 게시글 리스트 가져오기
-		List<PostDto> cardList = postService.timelinePostList();
+		List<PostDto> cardList = postService.timelinePostList(userId);
 		
 		model.addAttribute("cardList", cardList);
 		return "post/timeline";

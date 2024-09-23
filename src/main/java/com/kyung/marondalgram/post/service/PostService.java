@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kyung.marondalgram.common.FileManager;
+import com.kyung.marondalgram.like.service.LikeService;
 import com.kyung.marondalgram.post.domain.Post;
 import com.kyung.marondalgram.post.dto.PostDto;
 import com.kyung.marondalgram.post.repository.PostRepository;
@@ -19,10 +20,12 @@ public class PostService {
 	// repository 객체 생성
 	private PostRepository postRepository;
 	private UserService userService;
+	private LikeService likeService;
 	
-	public PostService(PostRepository postRepository, UserService userService) {
+	public PostService(PostRepository postRepository, UserService userService, LikeService likeService) {
 		this.postRepository = postRepository;
 		this.userService = userService;
+		this.likeService = likeService;
 	}
 	
 	// 게시글 저장
@@ -55,7 +58,7 @@ public class PostService {
 	}
 	
 	// 타임라인에 보여질 게시글 불러오기
-	public List<PostDto> timelinePostList(){
+	public List<PostDto> timelinePostList(int userId){
 		// 전체 게시글 리스트 불러오기
 		List<Post> postList = postRepository.findAllByOrderByUpdatedAtDesc();
 		
@@ -66,6 +69,7 @@ public class PostService {
 		for(Post post : postList) {
 			int postUserId = post.getUserId();
 			UserDto userDto =  userService.userData(postUserId);
+			boolean checkLike = likeService.likeCheck(userId, post.getId());
 			
 			PostDto postDto = PostDto.builder()
 							.postId(post.getId())
@@ -75,6 +79,7 @@ public class PostService {
 							.musicId(post.getMusicId())
 							.loginId(userDto.getLoginId())
 							.profileImagePath(userDto.getProfileImagePath())
+							.like(checkLike)
 							.createdAt(post.getCreatedAt())
 							.updatedAt(post.getUpdatedAt())
 							.build();
