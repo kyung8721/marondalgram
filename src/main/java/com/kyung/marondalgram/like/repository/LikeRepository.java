@@ -7,7 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.kyung.marondalgram.like.domain.Like;
 
 public interface LikeRepository extends JpaRepository<Like, Integer>{
-	public List<Like> findByUserIdAndPostId(int userId, int postId);
 	
-	public List<Like> findAllByUserIdAndPostId(int userId, int postId);
+	public Like findByUserIdAndPostId(int userId, int postId);
+	
+	public int countByUserIdAndPostId(int userId, int postId);
+	
+	public int countByPostId(int postId);
+	
 }
