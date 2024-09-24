@@ -2,6 +2,7 @@ package com.kyung.marondalgram.post.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -101,6 +102,57 @@ public class PostService {
 		
 		return cardList;
 		
+	}
+	
+	// 게시글 삭제
+	public boolean postDeleteService(int postId) {
+		
+		// 해당 post 객체 불러오기
+		Optional<Post> optionalPost = postRepository.findById(postId);
+		Post post = optionalPost.orElse(null);
+		
+		// 해당 post 제거
+		if(post != null) {
+			// 저장된 이미지
+			FileManager.deleteImageFile(post.getImagePath());
+			// 포스트
+			postRepository.delete(post);
+		}else {
+			return false;
+		}
+		
+		// 해당 post와 관련된 항목 제거
+		//// 좋아요
+		////// 해당 post와 관련된 좋아요가 있는지 확인
+		if(likeService.likeCount(postId) > 0) {
+			// 좋아요 삭제
+			if(likeService.likeDeletePostAll(postId)) {
+				// 삭제 성공
+			} else {
+				return false; // 삭제 실패
+			}
+		}else if(likeService.likeCount(postId) == 0) {
+			// 좋아요가 없으면 삭제 없이 그냥 지나가게
+		} else {
+			return false;
+		}
+		
+		//// 댓글
+		///// 해당 post와 관련된 댓글이 있는지 확인
+		if(commentService.commentCountService(postId) > 0) {
+			// 댓글 삭제
+			if(commentService.deleteCommentPostAll(postId)) {
+				// 삭제 성공
+			} else {
+				return false;
+			}
+		}else if(commentService.commentCountService(postId) == 0) {
+			// 댓글이 없으면 삭제 없이 지나가게
+		} else {
+			return false;
+		}
+		
+		return true;
 	}
 	
 }

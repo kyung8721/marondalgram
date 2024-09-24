@@ -3,6 +3,7 @@ package com.kyung.marondalgram.post;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,6 +64,27 @@ public class PostRestController {
 		if(urlPath != null) {
 			resultMap.put("result", "success");
 			resultMap.put("imagePath", urlPath);
+		}else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+		
+	}
+	
+	// 게시글 삭제 API
+	@DeleteMapping("/delete")
+	public Map<String, String> postDelete(
+			HttpSession session
+			, @RequestParam("postId") int postId){
+		int userId = (Integer)session.getAttribute("userId");
+		
+		boolean result = postService.postDeleteService(postId);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(result) {
+			resultMap.put("result", "success");
 		}else {
 			resultMap.put("result", "fail");
 		}

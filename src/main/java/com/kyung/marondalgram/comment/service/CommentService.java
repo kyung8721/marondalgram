@@ -77,4 +77,14 @@ public class CommentService {
 			return false;
 		}
 	}
+	
+	// 한 post 내의 댓글 모두 삭제
+	public boolean deleteCommentPostAll(int postId) {
+		if(commentRepository.countByPostId(postId) > 0) {
+			commentRepository.deleteByPostId(postId);
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

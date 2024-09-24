@@ -6,6 +6,7 @@
 	margin : 0 auto; 
 	overflow: auto;
 	flex-direction : row;
+	position : static;
 }
 
 
@@ -226,10 +227,12 @@ input:focus { outline:none; }
 
 .mainContents{
 	flex-grow : 1;
+	display : block;
 }
 
 .nickNameHeaderSection{
 	height : 75px;
+	width : 570px;
 }
 
 .timelinePostImage{
@@ -270,4 +273,6 @@ input:focus { outline:none; }
 	background-color:transparent;
 	
 }
+
+
 
