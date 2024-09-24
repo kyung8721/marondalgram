@@ -58,4 +58,14 @@ public class LikeService {
 	public int likeCount(int postId) {
 		return likeRepository.countByPostId(postId);
 	}
+	
+	// 한 포스트 내 좋아요 전부 삭제
+	public boolean likeDeletePostAll(int postId) {
+		if(likeCount(postId) > 0) {
+			likeRepository.deleteByPostId(postId);
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

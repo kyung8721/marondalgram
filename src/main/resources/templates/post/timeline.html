@@ -13,7 +13,7 @@
 	    		<!-- 게시글 1개 -->
 	    		<div class="timelinePost" th:each="post:${cardList}">
 	    			<!-- 닉네임 부분 -->
-	    			<div class="nickNameHeaderSection d-flex pl-2">
+	    			<div class="nickNameHeaderSection d-flex justify-content-between pl-2">
 	    				<div class="d-flex align-items-center">
 	    					<!-- 프로필 사진 -->
 		    				<div class="smallProfile">
@@ -38,8 +38,14 @@
 		    						<div class="smallTextSecondary">Music</div>
 		    					</div>
 		    				</div>
-		    				
-	    				</div>
+		    			</div>
+	    				<!-- three dot -->
+		    			<div th:data-post-id-three-dot = "${post.postId}" class="d-flex align-items-center threeDot" th:if="${post.userId} == ${user.userId}">
+		    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+								<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+							</svg>
+		    			</div>
+	    				
 	    			</div>
 	    			<!-- 게시글 사진 부분 -->
 	    			<div class="timelinePostImageSection">
@@ -117,7 +123,28 @@
     <script layout:fragment="script">
     	$(document).ready(function(){
     		
-    		
+    		// 점 3개 클릭 이벤트 클릭
+    		$(".threeDot").on("click", function(){
+    			// 일단 삭제로 구현
+    			let postId = $(this).data("post-id-three-dot");
+    			
+    			$.ajax({
+    				type : "delete"
+    				, url : "/marondalgram/post/delete"
+    				, data : {"postId": postId}
+    				, success : function(data){
+    					if(data.result == "success"){
+                    		location.reload();
+                    	}else{
+                    		alert("게시글 삭제 실패!");
+                    	}
+    				}
+    				, error : function(){
+    					alert("게시글 삭제 오류")
+    				}
+    			}) // 게시글 삭제 이벤트 종료
+    			
+    		}); // 점3개 클릭 이벤트 종료
     		
     		// 댓글 삭제 이벤트
     		$(".deleteBtn").on("click", function(){

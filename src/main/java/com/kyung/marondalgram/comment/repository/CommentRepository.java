@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.kyung.marondalgram.comment.domain.Comment;
 
+import jakarta.transaction.Transactional;
+
 public interface CommentRepository extends JpaRepository<Comment, Integer>{
 	public List<Comment> findByPostId(int postId);
 	
@@ -16,4 +18,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer>{
 	public Comment findByUserIdAndPostIdAndComment(int userId, int postId, String comment);
 	
 	public int countById(int commentId);
+	
+	@Transactional
+	public void deleteByPostId(int postId);
 }
