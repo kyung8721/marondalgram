@@ -79,7 +79,7 @@ public class PostRestController {
 			, @RequestParam("postId") int postId){
 		int userId = (Integer)session.getAttribute("userId");
 		
-		boolean result = postService.postDeleteService(postId);
+		boolean result = postService.postDeleteService(postId, userId);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		

@@ -274,5 +274,13 @@ input:focus { outline:none; }
 	
 }
 
+.custom-modal-white{
+	width : 745px;
+	height : 800px;
+	margin : 0 auto;
+	border-radius : 32px;
+	background-color: rgb(255,255,255); 
+}
+
 
 

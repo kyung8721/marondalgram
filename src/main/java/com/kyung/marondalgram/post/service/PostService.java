@@ -105,10 +105,12 @@ public class PostService {
 	}
 	
 	// 게시글 삭제
-	public boolean postDeleteService(int postId) {
+	public boolean postDeleteService(int postId, int userId) {
+		
+		
 		
 		// 해당 post 객체 불러오기
-		Optional<Post> optionalPost = postRepository.findById(postId);
+		Optional<Post> optionalPost = postRepository.findByIdAndUserId(postId, userId);
 		Post post = optionalPost.orElse(null);
 		
 		// 해당 post 제거
