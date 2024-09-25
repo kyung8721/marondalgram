@@ -2,6 +2,7 @@ package com.kyung.marondalgram.comment.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -79,12 +80,8 @@ public class CommentService {
 	}
 	
 	// 한 post 내의 댓글 모두 삭제
-	public boolean deleteCommentPostAll(int postId) {
-		if(commentRepository.countByPostId(postId) > 0) {
-			commentRepository.deleteByPostId(postId);
-			return true;
-		} else {
-			return false;
-		}
+	public void deleteCommentPostAll(int postId) {
+		commentRepository.deleteByPostId(postId);
+		
 	}
 }

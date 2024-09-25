@@ -45,6 +45,8 @@
 								<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
 							</svg>
 		    			</div>
+		    			
+		    			
 	    				
 	    			</div>
 	    			<!-- 게시글 사진 부분 -->
@@ -118,15 +120,39 @@
     		</div>
     	</div>
     	
+    	<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-body">
+		        <!-- 모달 본문 -->
+		        <div class="modalPostId d-none"></div>
+		        게시글을 삭제하시겠습니까?
+		      </div>
+		      <div class="modal-footer">
+		      	<!-- 모달 닫기 -->
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">아니요</button>
+		        <button type="button" class="btn btn-danger deletePostBtn" >게시글 삭제하기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+    	
     </section>
     
     <script layout:fragment="script">
     	$(document).ready(function(){
     		
-    		// 점 3개 클릭 이벤트 클릭
+    		// 삭제 모달
     		$(".threeDot").on("click", function(){
-    			// 일단 삭제로 구현
     			let postId = $(this).data("post-id-three-dot");
+    			$(".modalPostId").text(postId);
+    			$('#exampleModal').modal("show");
+    		});
+    		
+    		// 점 3개 클릭 이벤트 클릭
+    		$(".deletePostBtn").on("click", function(){
+    			let postId = $(".modalPostId").text();
     			
     			$.ajax({
     				type : "delete"
