@@ -120,13 +120,13 @@
     		</div>
     	</div>
     	
-    	<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    	<!-- 게시글 삭제 Modal -->
+		<div class="modal fade" id="optionModal" tabindex="-1" role="dialog" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-body">
 		        <!-- 모달 본문 -->
-		        <div class="modalPostId d-none"></div>
+		        <div class="postIdModal d-none"></div>
 		        게시글을 삭제하시겠습니까?
 		      </div>
 		      <div class="modal-footer">
@@ -137,22 +137,42 @@
 		    </div>
 		  </div>
 		</div>
+		
+		<!-- 게시글 만들기 Modal -->
+		<div class="modal fade" id="makePostModal" tabindex="-1" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		    	<div class="custom-modal-white">
+			    	<div class="custom-modal-body">
+			    	</div>
+			    </div>
+		    </div>
+		  </div>
+		</div>
     	
     </section>
     
     <script layout:fragment="script">
     	$(document).ready(function(){
     		
+    		// 게시글 만들기 띄우기 모달
+    		$("#openPostMakeModal").on("click", function(){
+    			$("#makePostModal .custom-modal-body").load("/marondalgram/post/create/image-view");
+    			$("#makePostModal").modal("show");
+    		})
+    			
+    		
+    		
     		// 삭제 모달
     		$(".threeDot").on("click", function(){
     			let postId = $(this).data("post-id-three-dot");
-    			$(".modalPostId").text(postId);
-    			$('#exampleModal').modal("show");
+    			$(".postIdModal").text(postId);
+    			$('#optionModal').modal("show");
     		});
     		
-    		// 점 3개 클릭 이벤트 클릭
+    		// 게시글 삭제 이벤트
     		$(".deletePostBtn").on("click", function(){
-    			let postId = $(".modalPostId").text();
+    			let postId = $(".postIdModal").text();
     			
     			$.ajax({
     				type : "delete"
