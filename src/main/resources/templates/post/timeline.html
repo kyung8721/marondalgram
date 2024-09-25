@@ -104,7 +104,7 @@
 		    					<div  th:text="${comment.loginId}">idjse_22</div>
 		    					<div  class="ml-2" th:text="${comment.comment}">우와 사고시퍼요~~</div>
 	    					</div>
-	    					<button type="button" class="btn btn-danger btn-sm deleteBtn" th:data-comment-delete-btn = "${comment.id}">삭제</button>
+	    					<button th:if="${comment.userId} == ${user.userId}" type="button" class="btn btn-danger btn-sm deleteBtn" th:data-comment-delete-btn = "${comment.id}">삭제</button>
 	    				</div>
 	    				<!-- 댓글 입력 -->
 	    				<div class="d-flex mt-2">
