@@ -1,6 +1,7 @@
 package com.kyung.marondalgram.like.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,11 @@ public class LikeService {
 	// 좋아요 삭제 서비스
 	public boolean likeDeleteService(int userId, int postId) {
 		
-		Like like = likeRepository.findByUserIdAndPostId(userId, postId);
+		Optional<Like> optionalLike = likeRepository.findByUserIdAndPostId(userId, postId);
+		Like like = optionalLike.orElse(null);
 		
-		int likecount= likeRepository.countByUserIdAndPostId(userId, postId);
 		
-		if(likecount > 0) {
+		if(like != null) {
 			likeRepository.delete(like);
 			return true;
 		}else {
@@ -60,12 +61,7 @@ public class LikeService {
 	}
 	
 	// 한 포스트 내 좋아요 전부 삭제
-	public boolean likeDeletePostAll(int postId) {
-		if(likeCount(postId) > 0) {
-			likeRepository.deleteByPostId(postId);
-			return true;
-		} else {
-			return false;
-		}
+	public void likeDeletePostAll(int postId) {
+		likeRepository.deleteByPostId(postId);
 	}
 }
