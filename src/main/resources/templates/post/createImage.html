@@ -26,28 +26,20 @@
 	        </div>
         </div>
         
-        <!-- 이미지 확인 Modal -->
-		<div class="modal fade" id="makePostModalImage" tabindex="-1" role="dialog" aria-hidden="true">
-		  <div class="modal-dialog modal-lg" role="document">
-		    <div class="modal-content">
-		    	<div class="custom-modal-white">
-			    	<div class="custom-modal-body">
-			    	</div>
-			    </div>
-		    </div>
-		  </div>
-		</div>
+        
     </section>
     
     
     <script layout:fragment = "script">
     	$(document).ready(function(){
+    		// 파일 선택 모달(파일 선택 버튼 클릭 시 숨겨진 파일 인풋 버튼 누른 효과 내기)
     		$("#fileInputBtn").on("click", function(){
     			$("#fileInput").click();
     			
     			
     		}); // 파일 선택 버튼 종료
     		
+    		// 파일 선택 모달2(파일 선택)
     		$("#fileInput").on("input", function(){
     			
     			
@@ -66,11 +58,10 @@
     				, contentType : false // 파일 업로드 필수
     				, success : function(data){
     					if(data.result == "success"){
-    						let imagePath = data.imagePath;
-    						// 게시글 만들기 띄우기 모달
-    			    		$("#makePostModalImage .custom-modal-body").load("/marondalgram/post/create/image-check-view?imagePath=" + imagePath);
-    			    		$("#makePostModal").modal("hide");
-    			    		$("#makePostModalImage").modal("show");
+    						// 게시글 이미지 체크 띄우기 모달
+    						$("#makePostModalImage .custom-modal-body").load("/marondalgram/post/create/image-check-view?imagePath=" + data.imagePath);
+    						$("#makePostModal").modal("hide");
+    						$("#makePostModalImage").modal("show");
     					}else{
     						alert("파일 입력 실패");
     					}
