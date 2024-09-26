@@ -120,19 +120,14 @@
     		</div>
     	</div>
     	
-    	<!-- 게시글 삭제 Modal -->
+    	<!-- 게시글 수정 삭제 Modal -->
 		<div class="modal fade" id="optionModal" tabindex="-1" role="dialog" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
+		  <div class="modal-dialog  modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		      <div class="modal-body">
 		        <!-- 모달 본문 -->
-		        <div class="postIdModal d-none"></div>
-		        게시글을 삭제하시겠습니까?
-		      </div>
-		      <div class="modal-footer">
-		      	<!-- 모달 닫기 -->
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">아니요</button>
-		        <button type="button" class="btn btn-danger deletePostBtn" >게시글 삭제하기</button>
+		        <div class="d-block text-center border-bottom pt-2 pb-2 modalSelector" id="updateBtn">수정</div>
+		        <div class="d-block text-center pt-2 pb-2 modalSelector deletePostBtn">삭제</div>
 		      </div>
 		    </div>
 		  </div>
@@ -140,7 +135,7 @@
 		
 		<!-- 게시글 만들기 Modal -->
 		<div class="modal fade" id="makePostModal" tabindex="-1" role="dialog" aria-hidden="true">
-		  <div class="modal-dialog modal-lg modal-radius" role="document">
+		  <div class="modal-dialog modal-lg" role="document">
 		    <div class="modal-content">
 		    	<div class="custom-modal-white">
 			    	<div class="custom-modal-body">
@@ -152,7 +147,7 @@
 		
 		<!--  이미지 확인 Modal -->
 		<div class="modal fade" id="makePostModalImage" tabindex="-1" role="dialog" aria-hidden="true">
-		  <div class="modal-dialog modal-lg modal-radius" role="document">
+		  <div class="modal-dialog modal-lg" role="document">
 		    <div class="modal-content">
 		    	<div class="custom-modal-white">
 			    	<div class="custom-modal-body">
@@ -163,8 +158,8 @@
 		</div>
 		
 		<!-- 게시글 본문 입력 Modal -->
-		<div class="modal fade" id="makePostModalText" tabindex="-1" role="dialog" aria-hidden="true">
-		  <div class="modal-dialog modal-xl modal-radius" role="document">
+		<div class="modal fade" id="makePostModalText" tabindex="-1" role="dialog" aria-hidden="true" data-update-post-id="">
+		  <div class="modal-dialog modal-xl" role="document">
 		    <div class="modal-content">
 		    	<div class="custom-modal-white-xl">
 			    	<div class="custom-modal-body">
@@ -177,11 +172,22 @@
     </section>
     
     <script layout:fragment="script">
+    
     	$(document).ready(function(){
     		
-    		
-    		
-    		
+    		// 수정 버튼 클릭 이벤트
+    		$("#updateBtn").on("click", function(){
+    			let postId = $(this).data("post-id-three-dot");
+    			
+    			//받아온 postId를 modal에 저장시킴
+    			$(".makePostModalText").data("update-post-id", postId);
+    			
+    			// 만들기 modal 오픈
+    			$("#makePostModal .custom-modal-body").load("/marondalgram/post/create/image-view");
+    			$('#optionModal').modal("hide");
+    			$("#makePostModal").modal("show");
+    		}); // 수정버튼 이벤트 종료
+    		 
     		// 게시글 만들기 띄우기 모달
     		$("#openPostMakeModal").on("click", function(){
     			$("#makePostModal .custom-modal-body").load("/marondalgram/post/create/image-view");
@@ -193,13 +199,13 @@
     		// 삭제 모달
     		$(".threeDot").on("click", function(){
     			let postId = $(this).data("post-id-three-dot");
-    			$(".postIdModal").text(postId);
+    			$(".deletePostBtn").data("post-id", postId);
     			$('#optionModal').modal("show");
     		});
     		
     		// 게시글 삭제 이벤트
     		$(".deletePostBtn").on("click", function(){
-    			let postId = $(".postIdModal").text();
+    			let postId = $(".deletePostBtn").data("post-id");
     			
     			$.ajax({
     				type : "delete"

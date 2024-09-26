@@ -69,10 +69,11 @@
 						<li class="nav-item d-flex mt-2">
 							<div class="menuIconSection">
 								<div class="smallProfile">
-									<img th:src="${user.profileImagePath}" class="smallProfimeImage">
+									<img th:src="${user.profileImagePath}" class="smallProfileImage">
+									
 								</div>
 							</div>
-							<a class="nav-link menuText" href="#">프로필</a>
+							<a class="nav-link menuText" href="#" th:text="${user.loginId}">프로필</a>
 						</li>
 						<li class="nav-item d-flex mt-2">
 							<div class="menuIconSection">

@@ -134,4 +134,22 @@ public class PostService {
 		
 	}
 	
+	// 게시글 수정
+	public Post changePost(int postId, String contents, String imagePath, int musicId) {
+		// post가 있는지 확인
+		Optional<Post> optionalPost = postRepository.findById(postId);
+		optionalPost.orElse(null);
+		
+		if(optionalPost != null) {
+			// post가 있으면
+			Post updatePost = Post.toBuilder()
+							.id(postId)
+							.contents(contents)
+							.imagePath(imagePath)
+							.musicId(musicId)
+							.build();
+			Post result = postRepository.save(updatePost);
+		}
+	}
+	
 }
