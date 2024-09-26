@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileManager {
 	
 	// 기본 저장 경로 상수로 저장
-	//public static final String FILE_UPLOAD_PATH = "C:\\Users\\USER\\Desktop\\JAVA\\springProject\\upload\\marondalgram";
-	public static final String FILE_UPLOAD_PATH = "C:\\Users\\user\\Desktop\\bae\\springProject\\upload\\marondalgram";
+	public static final String FILE_UPLOAD_PATH = "C:\\Users\\USER\\Desktop\\JAVA\\springProject\\upload\\marondalgram";
+	//public static final String FILE_UPLOAD_PATH = "C:\\Users\\user\\Desktop\\bae\\springProject\\upload\\marondalgram";
 	
 	// 파일 저장
 	public static String saveFile(int userId, MultipartFile imageFile) {
@@ -38,7 +38,8 @@ public class FileManager {
 		}
 		
 		// 파일 저장
-		String filePath = directoryPath + "/" + imageFile.getOriginalFilename();
+		String imageFileNameDeleteSpace = imageFile.getOriginalFilename().replace(" ", "-");
+		String filePath = directoryPath + "/" + imageFileNameDeleteSpace;
 		
 		// 실제 파일
 		try {
@@ -51,7 +52,7 @@ public class FileManager {
 		}
 		
 		// 저장된 파일을 접근할 URL Path 만들기
-		return "/images" + directoryName + "/" + imageFile.getOriginalFilename();
+		return "/images" + directoryName + "/" + imageFileNameDeleteSpace;
 	}
 	
 	// 파일 삭제
