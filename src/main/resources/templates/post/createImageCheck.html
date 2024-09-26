@@ -9,7 +9,7 @@
     </div>
     
     <div layout:fragment="nextBtn">
-        <a th:href="|/marondalgram/post/create/text-view?imagePath=${imagePath}|">다음</a>
+        <a id="openMakePostModalText">다음</a>
     </div>
     
     <section layout:fragment="contents" class="createcontents d-flex justify-content-center align-items-center">
@@ -19,7 +19,15 @@
     </section>
     
     <script layout:fragment = "script">
-    	
+    $(document).ready(function(){
+    	// 게시글 본문 모달
+		$("#openMakePostModalText").on("click", function(){
+			let imagePath = $(".imageCheck").attr("src");
+			$("#makePostModalText .custom-modal-body").load("/marondalgram/post/create/text-view?imagePath=" + imagePath);
+			$("#makePostModalImage").modal("hide");
+			$("#makePostModalText").modal("show");
+		})
+    });
     
     </script>
 </html>

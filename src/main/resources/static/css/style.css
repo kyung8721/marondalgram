@@ -282,5 +282,16 @@ input:focus { outline:none; }
 	background-color: rgb(255,255,255); 
 }
 
+.custom-modal-white-xl{
+	width : 1000px;
+	height : 800px;
+	margin : 0 auto;
+	border-radius : 32px;
+	background-color: rgb(255,255,255); 
+}
+
+.modal-radius{
+	border-radius : 32px;
+}
 
 
