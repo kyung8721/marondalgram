@@ -62,6 +62,7 @@
         $(document).ready(function(){
         	// 완료 버튼 클릭
             $("#finishBtn").on("click", function(){
+            	
             	let imagePath = $("#imagePath").attr("src");
             	let contents = $("#contents").val();
             	let music = $("#music").val();
@@ -85,23 +86,49 @@
                 formData.append("imagePath", imagePath);
                 formData.append("musicId", music);
                 
-                $.ajax({
-                	type : "post"
-                	, url : "/marondalgram/post/create"
-                	, data : formData
-                	, processData : false // 파일 업로드 필수
-                    , contentType : false // 파일 업로드 필수
-                	, success : function(data){
-                		if(data.result == "success"){
-                			location.href="/marondalgram/post/timeline-view";
-                		}else{
-                			alert("입력 실패!");
-                		}
-                	}
-                   , error : function(){
-                	   alert("입력 에러!");
-                   }
-                }) // 완료버튼 클릭 ajax 종료
+                let updatePostId = $(".makePostModalText").data("update-post-id");
+                if(updatePostId == null){
+                	// 게시글 첫 등록시
+                	$.ajax({
+                    	type : "post"
+                    	, url : "/marondalgram/post/create"
+                    	, data : formData
+                    	, processData : false // 파일 업로드 필수
+                        , contentType : false // 파일 업로드 필수
+                    	, success : function(data){
+                    		if(data.result == "success"){
+                    			location.href="/marondalgram/post/timeline-view";
+                    		}else{
+                    			alert("입력 실패!");
+                    		}
+                    	}
+                       , error : function(){
+                    	   alert("입력 에러!");
+                       }
+                    }) // 완료버튼 클릭 ajax 종료
+                } else{
+                	// 게시글 수정 시
+                	formData.append("postId", updatePostId);
+                	$.ajax({
+                    	type : "put"
+                    	, url : "/marondalgram/post/change"
+                    	, data : formData
+                    	, processData : false // 파일 업로드 필수
+                        , contentType : false // 파일 업로드 필수
+                    	, success : function(data){
+                    		if(data.result == "success"){
+                    			$(".makePostModalText").data("update-post-id", ""); // 혹시 모르니 postId 입력된 것 삭제
+                    			location.href="/marondalgram/post/timeline-view";
+                    		}else{
+                    			alert("입력 실패!");
+                    		}
+                    	}
+                       , error : function(){
+                    	   alert("입력 에러!");
+                       }
+                    }) // 완료버튼 클릭 ajax 종료
+                }
+                
             }); // 완료 버튼 클릭 이벤트 종료
         });// 문서 준비 종료
     </script>

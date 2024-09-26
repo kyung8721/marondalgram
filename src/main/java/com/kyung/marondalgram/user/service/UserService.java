@@ -73,7 +73,7 @@ public class UserService {
 		if(profile == null) {
 			// 기본값 지정
 			profile = new Profile();
-			profile.setProfileImagePath("https://cdn.pixabay.com/photo/2015/11/06/11/43/businessman-1026415_1280.jpg");
+			profile.setProfileImagePath("https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824144_1280.png");
 			profile.setId(0);
 			
 		}

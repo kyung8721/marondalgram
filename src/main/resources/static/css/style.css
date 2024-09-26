@@ -2,7 +2,7 @@
 
 #wrap{
 	width : 1440px;
-	height : 1024px;
+	/*height : 1024px;*/
 	margin : 0 auto; 
 	overflow: auto;
 	flex-direction : row;
@@ -188,7 +188,7 @@ input:focus { outline:none; }
 
 .mainMenuSection{
 	width : 346px;
-	height : 1024px;
+	height : 100%;
 	display : flex;
 	flex-direction : column;
 	position : fixed;
@@ -290,8 +290,28 @@ input:focus { outline:none; }
 	background-color: rgb(255,255,255); 
 }
 
-.modal-radius{
-	border-radius : 32px;
+
+#wrap::-webkit-scrollbar {
+    width: 4px;  /* 스크롤바의 너비 */
 }
 
+#wrap::-webkit-scrollbar-thumb {
+    height: 20%; /* 스크롤바의 길이 */
+    background: #8a8a8a; /* 스크롤바의 색상 */
+    
+    border-radius: 5px;
+}
+
+#wrap::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+.modalSelector:hover{
+	background : #e6e6e6;
+	
+}
+
+.modalSelector:active{
+	background : #b5b3b4;
+}
 
