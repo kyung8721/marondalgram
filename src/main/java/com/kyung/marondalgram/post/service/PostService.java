@@ -138,17 +138,21 @@ public class PostService {
 	public Post changePost(int postId, String contents, String imagePath, int musicId) {
 		// post가 있는지 확인
 		Optional<Post> optionalPost = postRepository.findById(postId);
-		optionalPost.orElse(null);
+		Post post = optionalPost.orElse(null);
 		
-		if(optionalPost != null) {
+		if(post != null) {
 			// post가 있으면
-			Post updatePost = Post.toBuilder()
+			Post updatePost = post.toBuilder()
 							.id(postId)
 							.contents(contents)
 							.imagePath(imagePath)
 							.musicId(musicId)
 							.build();
 			Post result = postRepository.save(updatePost);
+			
+			return result;
+		}else {
+			return null;
 		}
 	}
 	
